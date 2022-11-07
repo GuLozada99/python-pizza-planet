@@ -2,8 +2,8 @@ from typing import Any, List, Optional, Sequence
 
 from sqlalchemy.sql import text, column
 
-from .models import Ingredient, Order, OrderDetail, Size, db
-from .serializers import (IngredientSerializer,
+from .models import Beverage, Ingredient, Order, OrderDetail, Size, db
+from .serializers import (BeverageSerializer, IngredientSerializer,
                           OrderSerializer,
                           SizeSerializer, ma, )
 
@@ -55,6 +55,11 @@ class SizeManager(BaseManager):
 class IngredientManager(MultiLookupManager):
     model = Ingredient
     serializer = IngredientSerializer
+
+
+class BeverageManager(MultiLookupManager):
+    model = Beverage
+    serializer = BeverageSerializer
 
 
 class OrderManager(BaseManager):
