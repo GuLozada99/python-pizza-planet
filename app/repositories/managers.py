@@ -3,8 +3,9 @@ from typing import Any, List, Optional, Sequence
 from sqlalchemy.sql import text, column
 
 from .models import Ingredient, Order, OrderDetail, Size, db
-from .serializers import (IngredientSerializer, OrderSerializer,
-                          SizeSerializer, ma)
+from .serializers import (IngredientSerializer,
+                          OrderSerializer,
+                          SizeSerializer, ma, )
 
 
 class BaseManager:
@@ -39,18 +40,21 @@ class BaseManager:
         return cls.get_by_id(_id)
 
 
+class MultiLookupManager(BaseManager):
+
+    @classmethod
+    def get_by_id_list(cls, ids: Sequence):
+        return cls.session.query(cls.model).filter(cls.model._id.in_(set(ids))).all() or []
+
+
 class SizeManager(BaseManager):
     model = Size
     serializer = SizeSerializer
 
 
-class IngredientManager(BaseManager):
+class IngredientManager(MultiLookupManager):
     model = Ingredient
     serializer = IngredientSerializer
-
-    @classmethod
-    def get_by_id_list(cls, ids: Sequence):
-        return cls.session.query(cls.model).filter(cls.model._id.in_(set(ids))).all() or []
 
 
 class OrderManager(BaseManager):
