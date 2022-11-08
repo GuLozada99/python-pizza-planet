@@ -2,9 +2,11 @@ from typing import Any, List, Optional, Sequence
 
 from sqlalchemy.sql import text, column
 
-from .models import Ingredient, Order, OrderDetail, Size, db
-from .serializers import (IngredientSerializer, OrderSerializer,
-                          SizeSerializer, ma)
+from .models import (Beverage, Ingredient, Order, OrderBeverage, OrderDetail,
+                     Size, db, )
+from .serializers import (BeverageSerializer, IngredientSerializer,
+                          OrderSerializer,
+                          SizeSerializer, ma, )
 
 
 class BaseManager:
@@ -39,18 +41,26 @@ class BaseManager:
         return cls.get_by_id(_id)
 
 
+class MultiLookupManager(BaseManager):
+
+    @classmethod
+    def get_by_id_list(cls, ids: Sequence):
+        return cls.session.query(cls.model).filter(cls.model._id.in_(set(ids))).all() or []
+
+
 class SizeManager(BaseManager):
     model = Size
     serializer = SizeSerializer
 
 
-class IngredientManager(BaseManager):
+class IngredientManager(MultiLookupManager):
     model = Ingredient
     serializer = IngredientSerializer
 
-    @classmethod
-    def get_by_id_list(cls, ids: Sequence):
-        return cls.session.query(cls.model).filter(cls.model._id.in_(set(ids))).all() or []
+
+class BeverageManager(MultiLookupManager):
+    model = Beverage
+    serializer = BeverageSerializer
 
 
 class OrderManager(BaseManager):
@@ -58,13 +68,15 @@ class OrderManager(BaseManager):
     serializer = OrderSerializer
 
     @classmethod
-    def create(cls, order_data: dict, ingredients: List[Ingredient]):
+    def create(cls, order_data: dict, ingredients: List[Ingredient], beverages: List[Beverage]):
         new_order = cls.model(**order_data)
         cls.session.add(new_order)
         cls.session.flush()
         cls.session.refresh(new_order)
         cls.session.add_all((OrderDetail(order_id=new_order._id, ingredient_id=ingredient._id, ingredient_price=ingredient.price)
                              for ingredient in ingredients))
+        cls.session.add_all((OrderBeverage(order_id=new_order._id, beverage_id=beverage._id, beverage_price=beverage.price)
+                             for beverage in beverages))
         cls.session.commit()
         return cls.serializer().dump(new_order)
 
