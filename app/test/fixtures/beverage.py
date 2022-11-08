@@ -16,6 +16,11 @@ def beverage_uri():
 
 
 @pytest.fixture
+def required_beverage_keys():
+    return '_id', 'name', 'price'
+
+
+@pytest.fixture
 def beverage():
     return beverage_mock()
 

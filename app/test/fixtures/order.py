@@ -22,7 +22,7 @@ def order_uri():
 def required_order_keys():
     return ('_id', 'client_name', 'client_dni',
             'client_address', 'client_phone', 'date',
-            'total_price', 'size', 'detail','beverages')
+            'total_price', 'size', 'detail', 'beverages')
 
 
 @pytest.fixture

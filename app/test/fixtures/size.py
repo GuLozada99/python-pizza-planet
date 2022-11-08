@@ -16,6 +16,11 @@ def size_uri():
 
 
 @pytest.fixture
+def required_size_keys():
+    return '_id', 'name', 'price'
+
+
+@pytest.fixture
 def size():
     return size_mock()
 
