@@ -3,12 +3,11 @@ import pytest
 from app.test.utils.functions import get_random_string, get_random_price
 
 
-def test_create_size_service(create_size):
+def test_create_size_service(create_size, required_size_keys):
     size = create_size.json
     pytest.assume(create_size.status.startswith('200'))
-    pytest.assume(size['_id'])
-    pytest.assume(size['name'])
-    pytest.assume(size['price'])
+    for key in required_size_keys:
+        pytest.assume(size[key])
 
 
 def test_update_size_service(client, create_size, size_uri):

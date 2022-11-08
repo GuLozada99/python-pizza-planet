@@ -3,12 +3,11 @@ import pytest
 from app.test.utils.functions import get_random_string, get_random_price
 
 
-def test_create_beverage_service(create_beverage):
+def test_create_beverage_service(create_beverage, required_beverage_keys):
     beverage = create_beverage.json
     pytest.assume(create_beverage.status.startswith('200'))
-    pytest.assume(beverage['_id'])
-    pytest.assume(beverage['name'])
-    pytest.assume(beverage['price'])
+    for key in required_beverage_keys:
+        pytest.assume(beverage[key])
 
 
 def test_update_beverage_service(client, create_beverage, beverage_uri):
