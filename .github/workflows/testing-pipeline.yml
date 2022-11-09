@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PYTHON_VERSION: 3.9
-      TESTING_DIR: app/test/
     steps:
       - name: Checkout The Repository
         uses: actions/checkout@v2
@@ -24,18 +23,19 @@ jobs:
         uses: snok/install-poetry@v1
 
       - name: Configure Poetry and Install Dependencies
-        if: steps.changes.outputs.api == 'true'
         run: |
           poetry config --local
           poetry install --no-interaction --no-root
         working-directory: .
 
       - name: Test
-        working-directory: ./${{ env.TESTING_DIR }}
+        working-directory: .
         run: |
+          source .venv/bin/activate
           pytest
       - name: Create Cov File
         run: |
-          pytest --cov=app ./${{ env.TESTING_DIR }} --cache-clear  > coverage.txt
+          source .venv/bin/activate
+          pytest --cov=app --cache-clear . > pytest-coverage.txt
       - name: Comment Coverage File in PR
         uses: coroo/pytest-coverage-commentator@v1.0.2
