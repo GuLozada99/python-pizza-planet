@@ -16,6 +16,11 @@ def ingredient_uri():
 
 
 @pytest.fixture
+def required_ingredient_keys():
+    return '_id', 'name', 'price'
+
+
+@pytest.fixture
 def ingredient():
     return ingredient_mock()
 

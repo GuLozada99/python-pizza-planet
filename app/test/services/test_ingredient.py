@@ -3,12 +3,11 @@ import pytest
 from app.test.utils.functions import get_random_string, get_random_price
 
 
-def test_create_ingredient_service(create_ingredient):
+def test_create_ingredient_service(create_ingredient, required_ingredient_keys):
     ingredient = create_ingredient.json
     pytest.assume(create_ingredient.status.startswith('200'))
-    pytest.assume(ingredient['_id'])
-    pytest.assume(ingredient['name'])
-    pytest.assume(ingredient['price'])
+    for key in required_ingredient_keys:
+        pytest.assume(ingredient[key])
 
 
 def test_update_ingredient_service(client, create_ingredient, ingredient_uri):
