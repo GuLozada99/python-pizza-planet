@@ -28,6 +28,12 @@ jobs:
           poetry install --no-interaction --no-root
         working-directory: .
 
+      - name: Lint With flake8
+        run: |
+          source .venv/bin/activate
+          poetry run flake8 --show-source --statistics
+        working-directory: .
+
       - name: Test
         working-directory: .
         run: |
