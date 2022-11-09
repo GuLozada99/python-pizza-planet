@@ -31,11 +31,9 @@ jobs:
       - name: Test
         working-directory: .
         run: |
-          source .venv/bin/activate
-          pytest
+          poetry run pytest
       - name: Create Cov File
         run: |
-          source .venv/bin/activate
-          pytest --cov=app --cache-clear . > pytest-coverage.txt
+          poetry run pytest --cov=app --cache-clear . > pytest-coverage.txt
       - name: Comment Coverage File in PR
         uses: coroo/pytest-coverage-commentator@v1.0.2
