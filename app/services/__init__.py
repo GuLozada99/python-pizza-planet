@@ -4,3 +4,4 @@ from .size import size
 from .beverage import beverage
 from .index import index
 from .client import client
+from .report import report
