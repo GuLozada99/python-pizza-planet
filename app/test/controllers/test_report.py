@@ -32,7 +32,7 @@ def test_get_most_requested_ingredient(app):
 
     most_req_ing = ReportController.get_ingredients_by_request()
     for ingredient, _id in zip(most_req_ing, ingredients_ids_order):
-        assert ingredient[0]['_id'] == _id
+        assert ingredient['_id'] == _id
 
 
 def test_get_client_more_expenses(app):
@@ -62,7 +62,7 @@ def test_get_client_more_expenses(app):
     clients_more_expenses = ReportController.get_clients_by_expenses()
 
     for client, i in zip(clients_more_expenses, most_expenses_order):
-        assert clis[i]['client']['_id'] == client[0]['_id']
+        assert clis[i]['client']['_id'] == client['_id']
 
 
 def test_get_months_by_revenue(app):
@@ -95,5 +95,5 @@ def test_get_months_by_revenue(app):
                 })
 
     months_by_rev = ReportController.get_months_by_revenue()
-    for month, set_month in zip(months_by_rev, months_most_rev):
-        assert month[0][0] == set_month
+    for data, set_month in zip(months_by_rev, months_most_rev):
+        assert data['month'] == set_month
