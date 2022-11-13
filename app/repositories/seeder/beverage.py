@@ -13,5 +13,9 @@ beverages = [
 
 
 def create_beverages():
+    if BeverageController.get_all()[0]:
+        print("Beverage table already has objects")
+        return
+
     for beverage in beverages:
         BeverageController.create(beverage)

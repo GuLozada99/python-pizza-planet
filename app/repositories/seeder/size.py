@@ -10,5 +10,10 @@ sizes = [
 
 
 def create_sizes():
+    if SizeController.get_all()[0]:
+        print("Size table already has objects")
+        return
+
     for size in sizes:
-        SizeController.create(size)
+        result = SizeController.create(size)
+        print(result)

@@ -15,5 +15,9 @@ ingredients = [
 
 
 def create_ingredients():
+    if IngredientController.get_all()[0]:
+        print("Ingredient table already has objects")
+        return
+
     for ingredient in ingredients:
         IngredientController.create(ingredient)
