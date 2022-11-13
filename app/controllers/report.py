@@ -25,13 +25,15 @@ class ReportController:
     def get_months_by_revenue() -> List[Dict]:
         occurrences = defaultdict(lambda: 0)
         for order in Order.query.all():
-            occurrences[(order.date.month, order.date.strftime('%Y'))] += \
-                order.total_price
+            occurrences[order.date.month,
+                        order.date.strftime('%Y'),
+                        order.date.strftime('%B')] += order.total_price
 
         months_data = sorted(occurrences.items(), key=lambda k_v: k_v[1],
                              reverse=True)
         return [
-            {'month': date[0], 'year': date[1], 'revenue': revenue}
+            {'month': date[0], 'year': date[1],
+             'month_name': date[2], 'revenue': revenue}
             for date, revenue in months_data
         ]
 
