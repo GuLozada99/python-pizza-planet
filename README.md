@@ -15,7 +15,9 @@ This is an example software for a pizzeria that takes customizable orders.
 
 You will need the following general tools:
 
-- A Python interpreter installed. [3.8.x](https://www.python.org/downloads/release/python-3810/) is preffered.
+- A Python interpreter installed. [3.8.x](https://www.python.org/downloads/release/python-3810/) is preferred.
+
+- A Python Package manager [Poetry](https://python-poetry.org/docs/) is recommended
 
 - A text editor: preferably [Visual Studio Code](https://code.visualstudio.com/download)
 
@@ -49,10 +51,21 @@ _For windows users:_
 \path\to\env\Scripts\activate
 ```
 
+- With poetry, creating and activating a virtual env:
+
+```bash
+poetry shell
+```
+
 - Install all necessary dependencies:
 
 ```bash
 pip3 install -r requirements.txt
+```
+
+- With poetry, installing dependencies:
+```bash
+poetry install 
 ```
 
 - Start the database (Only needed for the first run):
