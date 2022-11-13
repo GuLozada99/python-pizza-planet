@@ -43,5 +43,7 @@ class ReportController:
                                            order in client.orders)
         client_data = sorted(occurrences.items(), key=lambda k_v: k_v[1],
                              reverse=True)
-        return [{**ClientController.get_by_id(_id)[0], 'expenses': expenses}
-                for _id, expenses in client_data]
+        return [
+            {**ClientController.get_by_id(_id)[0], 'expenses': expenses}
+            for _id, expenses in client_data
+        ]
