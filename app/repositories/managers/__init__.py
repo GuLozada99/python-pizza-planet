@@ -4,4 +4,3 @@ from .size import SizeManager
 from .order import OrderManager
 from .index import IndexManager
 from .base import BaseManager
-from .client import ClientManager
