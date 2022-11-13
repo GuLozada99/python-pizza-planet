@@ -11,6 +11,7 @@ from .fixtures.ingredient import *
 from .fixtures.order import *
 from .fixtures.size import *
 from .fixtures.beverage import *
+from .fixtures.client import *
 
 
 @pytest.fixture
