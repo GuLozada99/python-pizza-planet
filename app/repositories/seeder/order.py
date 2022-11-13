@@ -1,5 +1,4 @@
-from datetime import date, datetime, timedelta
-from typing import Tuple
+from datetime import datetime
 
 from faker import Faker
 from faker.providers import DynamicProvider
