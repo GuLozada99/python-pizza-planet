@@ -8,7 +8,6 @@ def client_mock() -> dict:
         'address': get_random_string(),
         'dni': get_random_string(),
         'name': get_random_string(),
-        'last_name': get_random_string(),
         'phone': get_random_string(),
     }
 
@@ -20,7 +19,7 @@ def client_uri():
 
 @pytest.fixture
 def required_client_keys():
-    return '_id', 'address', 'dni', 'name', 'last_name', 'phone'
+    return '_id', 'address', 'dni', 'name', 'phone'
 
 
 @pytest.fixture

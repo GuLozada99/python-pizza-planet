@@ -61,7 +61,6 @@ class ClientSerializer(ma.SQLAlchemyAutoSchema):
         fields = (
             '_id',
             'name',
-            'last_name',
             'dni',
             'address',
             'phone',

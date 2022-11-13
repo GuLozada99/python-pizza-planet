@@ -21,7 +21,6 @@ class Order(db.Model):
 class Client(db.Model):
     _id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80))
-    last_name = db.Column(db.String(80))
     dni = db.Column(db.String(10))
     address = db.Column(db.String(128))
     phone = db.Column(db.String(15))
