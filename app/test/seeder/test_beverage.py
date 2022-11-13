@@ -1,7 +1,7 @@
 import pytest
 
 from app.controllers import IngredientController
-from app.repositories.seeder import create_beverages, beverages
+from app.repositories.seeder.beverage import create_beverages, beverages
 
 
 def test_create_beverages(app, required_beverage_keys):
