@@ -1,30 +1,21 @@
 from datetime import datetime
 
-from sqlalchemy import UniqueConstraint
-
 from app.plugins import db
 
 
 class Order(db.Model):
     _id = db.Column(db.Integer, primary_key=True)
+    client_name = db.Column(db.String(80))
+    client_dni = db.Column(db.String(10))
+    client_address = db.Column(db.String(128))
+    client_phone = db.Column(db.String(15))
     date = db.Column(db.DateTime, default=datetime.utcnow)
     total_price = db.Column(db.Float)
     size_id = db.Column(db.Integer, db.ForeignKey('size._id'))
-    client_id = db.Column(db.Integer, db.ForeignKey('client._id'))
 
-    size = db.relationship('Size', backref=db.backref('orders'))
-    client = db.relationship('Client', backref=db.backref('orders'))
-    detail = db.relationship('OrderDetail', backref=db.backref('orders'))
-    beverages = db.relationship('OrderBeverage', backref=db.backref('orders'))
-
-
-class Client(db.Model):
-    _id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80))
-    dni = db.Column(db.String(10))
-    address = db.Column(db.String(128))
-    phone = db.Column(db.String(15))
-    __table_args__ = (UniqueConstraint('dni', name='unique_dni'),)
+    size = db.relationship('Size', backref=db.backref('size'))
+    detail = db.relationship('OrderDetail', backref=db.backref('order_detail'))
+    beverages = db.relationship('OrderBeverage', backref=db.backref('order_beverages'))
 
 
 class Ingredient(db.Model):
