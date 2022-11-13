@@ -15,5 +15,4 @@ def create_sizes():
         return
 
     for size in sizes:
-        result = SizeController.create(size)
-        print(result)
+        SizeController.create(size)

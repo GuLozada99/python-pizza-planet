@@ -1,3 +1,6 @@
+from datetime import date, datetime, timedelta
+from typing import Tuple
+
 from faker import Faker
 from faker.providers import DynamicProvider
 
@@ -28,14 +31,13 @@ def get_faker() -> Faker:
     return faker
 
 
-def create_orders():
+def create_orders(quantity: int = ORDERS_LENGTH):
     if OrderController.get_all()[0]:
         print("Order table already has objects")
         return
 
     faker = get_faker()
-
-    for _ in range(ORDERS_LENGTH):
+    for _ in range(quantity):
         OrderController.create({
             'client_dni': faker.client()['dni'],
             'size_id': faker.size()['_id'],
@@ -49,4 +51,5 @@ def create_orders():
                     faker.pyint(max_value=5)
                 )
             ],
+            'date': datetime(*faker.date_this_year().timetuple()[:6])
         })

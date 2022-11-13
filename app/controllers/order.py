@@ -77,7 +77,9 @@ class OrderController(BaseController):
             order_data = {
                 'size_id': current_order['size_id'],
                 'client_id': client['_id'],
-                'total_price': price}
+                'total_price': price,
+                'date': current_order['date'],
+            }
             return cls.manager.create(order_data, ingredients, beverages), None
         except (SQLAlchemyError, RuntimeError) as ex:
             return None, str(ex)
